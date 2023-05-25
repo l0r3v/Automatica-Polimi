@@ -1,0 +1,94 @@
+\lecture{10}{lun 01 mag 2023 17:16}{Realizzazione e forme di G(s)}
+	\lablsection{Realizzazione}
+	\[\left(A,B,C,D\right)\to G(s)\]
+	Ora vogliamo scrivere una realizzazione in spazio di stato a partire dalla $ G(s) $. Notiamo un paio di cose
+	\begin{itemize}
+		\item Questo problema ammette infinite soluzioni.
+		\item Le realizzazioni in cui A ha dimensioni uguali al grado del denominatore di $ G(s) $ su dicono \emph{minime}.
+		\item Le realizzazioni minime sono completamente raggiungibili e osservabili.
+	\end{itemize}
+	\lablsubsection{Forme canoniche}
+	\[G(s) = \frac{N(s)}{D(s)}\quad \operatorname{grad}(D(s)) = n  \text{ se } \operatorname{grad}(N(s))= n \to \text{ \emph{Sistema Proprio} }\]
+	Scrivo per comodità
+	\[\begin{aligned}
+		& G(s)=\frac{\tilde{N}(s)}{D(s)}+b_n \quad \operatorname{grad}(\tilde{N}(s))=n-1 \\
+		& G(s)=\frac{b_{n-1} s^{n-1}+b_{n-2} s^{n-2}+\ldots+b_1 s+b_0}{s^n+a_{n-1} s^{n-1}+a_{n-2} s^{n-2}+\ldots+a_1 s+a_0}
+	\end{aligned}\]
+	\subsubsection{La forma canonica di raggiungibilità (o controllo)}
+	\[A=\left(\begin{array}{cccc}
+		0 & 1 & &0 \\
+		\vdots&\ddots  &\ddots&  \\
+		0& &  0& 1 \\
+		-a_0&-a_1 & \cdots & a_{n-1}
+	\end{array}\right) \quad B=\left(\begin{array}{c}
+		0 \\
+		0 \\
+		\dots\\
+		0 \\
+		1
+	\end{array}\right) \quad c=\left(\begin{array}{llll}
+		b_0 & b_1 & \ldots & b_{n-1}
+	\end{array}\right) \quad D=b_n\]
+	Osservazione: Le forme canoniche godono delle proprietà di osservabilità e raggiungibilità.
+	\lablsection{Parametri caratteristici di G(s)}
+	\lablsubsection{Forma in costante di trasformata, Poli e Zeri (EVANS)}
+	\begin{figure}[H]
+		\begin{minipage}{.5\linewidth}
+			\[G(s)=\frac{\rho \prodc_i\left(s+z_i\right)}{s^g \prodc_k\left(s+p_k\right)}\]
+		\end{minipage}
+		\begin{minipage}{.5\linewidth}
+			\[\rho \to \text{Costante di trasferimento o EVANS} \quad z_i\to \text{Zeri}\quad p_k \to poli\]
+			\[g\to\text{tipo}\begin{cases}
+				g>0 \quad \# \text{ poli nell'origine}\\
+				g = 0\quad \text{non ho poli o zeri nell'origine}\\
+				g<0 \quad \# \text{ zeri nell'origine}
+			\end{cases}\]
+		\end{minipage}
+	\end{figure}
+	Se ho poli e zeri complessi coniugati li estraggo così:
+	\[s^2 + 2\xi\omega_ns + \omega_n^2\quad \omega_n >0\]
+	Le cui radici sono:
+	\begin{figure}[H]
+		\begin{minipage}{.5\linewidth}
+			\centering
+			\[s_{1,2} = - \xi\omega_n\pm\xi\omega\sqrt{1-\xi^2},\quad \left|\xi\right|\]
+			\begin{tikzpicture}[ultra thick]
+				\draw[->,thin] (-3,0) -- (2,0) node[below]{};
+				\draw[->,thin] (0,-3) -- (0,3) node[left]{};
+				\draw (0,0) node[above right]{$ 0 $};
+				\draw[dashed,color=red] (-2,-3) -- (-2,3);
+				\draw[dotted,color=blue] (0,0) -- (-2, 2);
+				\draw[dotted,color=blue] (0,0) -- (-2, -2);
+				\draw[dash dot dot,color=darkorange] (-1.5,0) arc[start angle=180,end angle=135,radius=1.5];
+				\draw (-1.5,0) node[above left]{$\mathcolor{darkorange}{ \alpha }$};
+				\draw[color=darkorange] (0,0) node[below right]{$ \xi= \cos\alpha $};
+			\end{tikzpicture}
+		\end{minipage}
+		\begin{minipage}{.5\linewidth}
+			\[
+			\begin{aligned}
+				\omega_n&\to\text{Pulsazione naturale, distanza dall'origine}\\
+				\xi &\to \text{Smorzamento, rappresenta il coseno dell'angolo con il semiasse negativo}\\
+				\xi < 0 &\to\text{Radici a destra}
+			\end{aligned}
+			\]
+		\end{minipage}
+	\end{figure}
+	Riscrivendo $ G(s) $
+	\[\begin{gathered}
+		G(s)=\frac{\rho}{s^g} \frac{\prodc_i\left(s+z_i\right) \prodc_i\left(s^2+2\xi_{z_i} \omega_{z_in} s+\omega_{z_in}^2\right)}{\prodc_k\left(s+p_k\right) \prodc_k\left(s^2+2 \xi_{p_k} \omega_{p_k} s+\omega_{p_{k n}}^2\right)} \\\\ \mid \xi_{z_i}|,| \xi_{p_k} \mid<1 \text{ e }w_{z_i n}, w_{p_k n}>0 
+	\end{gathered}\]
+	\lablsubsection{Forma in guadagno, costanti di tempo}
+	
+	\twomini{\[G(s)=\frac{\mu}{s^g} \frac{\prodc_i\left(1+s \tau_i\right)}{\prodc_k\left(1+s T_k\right)}\]}{\[\mu \to \text{Guadagno di $ G(s) $}\]
+		\[\tau_i\to \text{Costanti di tempo degli zeri}\]
+		\[T_i\to \text{Costanti di tempo dei poli}\]}
+	
+	Posso estrarre i poli complessi coniugati
+	\[
+	G(s)=\frac{\frac{\mu}{s^g} \prodc_i\left(1+\tau_i\right) \prodc_i\left(1+\frac{2 \xi_{z_i} s}{\omega_{z_i}^2}+\frac{s^2}{\omega_{2 i n}^2}\right)}{\prodc_k\left(1+T_k s\right) \frac{\pi}{k}\left(1+\frac{2 \xi_{P_k} s}{\omega_{p_{k n}}}+\frac{s^2}{\omega_{p_{k n}}^2}\right)}
+	\]
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "master"
+%%% End:

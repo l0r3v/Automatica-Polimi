@@ -1,0 +1,96 @@
+\lecture{4}{lun 01 mag 2023 17:12}{Sovrapposizione degli effetti, variabili di stato}
+	\lablsection{Principio di sovrapposizione degli effetti}
+	Vale per i sistemi lineari. Consideriamo tre casi:\\
+	\begin{enumerate}
+		\item $ \dot{x}_0 $ condizione iniziale, $ \dot{u}(t) $ per $ t \geq 0 $, ingresso $ \dot{x}(t), \dot{y}(t) $ moti di stato e uscita.
+		\item $ \ddot{x}_0 $ condizione iniziale, $ \ddot{u}(t) $ per $ t \geq 0$ ingresso $ \ddot{x}(t), \ddot{y}(t) $ moti di stato e uscita.
+		\item $ \dddot{x}_0=\alpha\dot{x}_0 +\beta\ddot{x}_0 $ condizione iniziale, $ \dddot{u}(t) $ per $ t \geq 0$ ingresso,$ \ddot{u}(t) = \alpha\dot{u}+\beta\ddot{u} $, $ \dddot{x}(t), \dddot{y}(t) $ moti di stato e uscita
+	\end{enumerate}
+	Il principio di sovrapposizione degli effetti dice che:\\
+	\begin{align*}
+		\dddot{x}(t) &= \alpha\dot{x} + \beta\ddot{x}\\
+		\dddot{y}(t) &= \alpha\dot{y} + \beta\ddot{y}
+	\end{align*}
+	\lablsubsection{Matrice esponenziale}
+	\begin{figure}[H]
+		\begin{minipage}{0.5\textwidth}
+			\begin{align*}
+				\dot x &= Ax+Bu\\
+				y &= Cx + Du
+			\end{align*}
+		\end{minipage}
+		\begin{minipage}{0.5\textwidth}
+			\centering
+			\[A \in \R^{n\times n} \to\text{Quadrata}\] Si dice matrice della \emph{dinamica}
+			\[ t\geq 0  \] 
+		\end{minipage}
+	\end{figure}
+	\subsubsection{Definizione matrice esponenziale}
+	\begin{equation*}
+		\boxed{e^{\text At} = \sum_{k = 0}^{\infty}\frac{(\text At)^k}{k!} = I + \text At + \frac{\text A^2t^2}{2!}+\dots}
+	\end{equation*}
+	\\
+	Si tenga in considerazione che la derivata della matrice esponenziale è calcolabile come segue:\\
+	\begin{equation*}
+		\frac{de^{\text{A}t}}{dt}  = \text Ae^{\text{A} t} = 0 + \text{A} + \frac{2\text A^2 t^2}{2!} + \dots
+	\end{equation*}
+	\nota{la matrice esponenziale può essere sorta per una generica $ \text{A} $. Noi consideriamo le matrici diagonalizzabili, cioè che $ \exists T | \det(t) \neq 0 $:
+		\begin{equation*}
+			\hat{A} = TAT^{-1} = diag(\lambda_1 \,\, \lambda_2 \,\,\dots\,\,\lambda_n)
+	\end{equation*}}
+	\lablsubsection{Formule di Lagrange}
+	\begin{align*}
+		x(t) &= e^{\text{A}(t-t_0)} x_0+ \int_{t_0}^{t}e^{\text{A}t-\tau}Bu(\tau)d\tau\\
+		y(t) &= Ce^{\text{A}(t-t_0)}x_0+ C \int_{t_0}^{t}e^{\text{A}t-\tau}Bu(\tau)d\tau
+	\end{align*}
+	Sono le soluzioni di:
+	\begin{align*}
+		\begin{cases}
+			\dot{x} =Ax+Bu\\
+			y = Cx+Du
+		\end{cases}
+	\end{align*}
+	\lablsubsection{Cambiamento delle variabili di stato}
+	\begin{equation*}
+		\begin{cases}
+			\dot{x}(t) &=Ax(t)+Bu(t)\qquad(1)\\
+			y(t) &= Cx(t)+Du(t)\qquad(2)
+		\end{cases}
+	\end{equation*}
+	La scelta iniziale dello stato è il vettore $ x  = [x_1 \,\,\dots\,\,x_n]^T$. Voglio trovare la relazione $ T $ tra $ x $ e una nuova scelta del vettore di stato $ \hat{x} $ con $ \det(T)\neq0 $. \\
+	$ \hat{x} $ è tale che:
+	\begin{equation*}
+		\boxed{\hat{x} = Tx}
+	\end{equation*}
+	\begin{equation*}
+		\boxed{x = T^{-1}\hat{x}}
+	\end{equation*}
+	Eseguiamo delle sostituzioni nell'equazione (1) e moltiplico per $ T $:
+	\[
+	T\dot{x} = \text{TAT}^{-1}\hat{x}+\text{TB}u
+	\]
+	\[
+	\boxed{\dot{\hat{x}} = \text{TAT}^{-1}\hat{x}+\text{TB}u}
+	\]
+	Faccio le sostituzioni in (2)
+	\[y = CT^{-1}\hat{x}+ Du\]
+	Chiamo:
+	\begin{align*}
+		\hat{A} = TAT^{-1}& \qquad &\hat{B} = TB\\
+		\hat{C} = CT^{-1}& \qquad &\hat{D} = \hat{D}
+	\end{align*}
+	Trovo un sistema equivalente:
+	\begin{equation*}
+		\begin{cases*}
+			\dot{\hat{x}} = \hat{A}\hat{x}+\hat{B}u\\
+			y = \hat{C}\hat{x} + \hat{D}u
+		\end{cases*}
+	\end{equation*}
+	\lablsubsection{Proprietà strutturale}
+	Qualsiasi proprietà indipendente dalla scelta delle variabili di stato, quindi della matrice $ \text T $, è detta \emph{strutturale}.
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "master"
+%%% End:

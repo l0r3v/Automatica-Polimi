@@ -1,0 +1,45 @@
+\documentclass[a4paper]{article}
+\input{../preamble.tex}
+\newcommand{\lablsection}[1]{\section{#1}}
+\newcommand{\lablsubsection}[1]{\subsection{#1}}
+\newcommand{\assi}[6]{
+	\draw[->] (#1,0) -- (#2,0) node[below]{$ #3 $};
+	\draw[->] (0,#4) -- (0,#5) node[left]{$ #6 $};
+	\draw (0,0) node[below left]{$ 0 $};
+}
+\newcommand{\assistd}[4]{\assi{-0.5}{#1}{#2}{-0.5}{#3}{#4}}
+% \usepackage[acronym]{glossaries-extra}
+% \setabbreviationstyle[acronym]{long-short}
+% \newacronym{tvf}{TVF}{Teorema del valore finale}
+% \newacronym{tvi}{TVI}{Teorema del valore iniziale}
+% \newacronym{as}{A.S.}{Asintoticamente Stabile}
+% \newacronym{fdt}{FdT}{Funzione di Trasferimento}
+% \newacronym{siso}{SISO}{Single Input Single Output}
+% \newacronym{mimo}{MIMO}{Multiple Input Multiple Output}
+% \newacronym{lti}{LTI}{Lineari tempo invarianti}
+% \newacronym{rh}{R-H}{Routh-Hurwitz}
+% \makenoidxglossaries
+\newcommand{\nota}[1]{\begin{figure}[H]\centering \Large$ \textcolor{gray}{\int} $\normalsize Nota: #1\end{figure}}
+\newcommand{\person}[1]{\textsf{#1}}
+\title{Fondamenti di Automatica}
+\begin{document}
+    \maketitle
+    \tableofcontents
+    % start lectures
+    \input{lec_01.tex}
+    \input{lec_02.tex}
+    \input{lec_03.tex}
+    \input{lec_04.tex}
+    \input{lec_05.tex}
+    \input{lec_06.tex}
+    \input{lec_07.tex}
+    \input{lec_08.tex}
+    \input{lec_09.tex}
+    \input{lec_10.tex}
+    \input{lec_11.tex}
+    % end lectures
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

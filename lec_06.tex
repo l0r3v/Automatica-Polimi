@@ -1,0 +1,129 @@
+\lecture{6}{lun 01 mag 2023 17:13}{Criteri di Stabilità}
+        \lablsection{Stabilità dei sistemi LTI}
+	Per i sistemi non lineari \underline{non} ha senso parlare di stabilità del sistema in toto ma posso parlare di stabilità di alcuni moti.\\
+	Per i sistemi \emph{LTI} invece si parla di stabilità del sistema. Come già detto in precedenza le definizioni di moti nominale e perturbati sono:
+	\begin{equation*}
+		\begin{cases*}
+			\dot{x}_N(t) = Ax_N(t)+ Bu(t) \quad t \geq0 \quad x_{N_0} = x_N(0) \quad (1)\\
+			\dot{x}_P(t) = Ax_P(t)+ Bu(t) \quad t \geq0 \quad x_{P_0} = x_P(0) \quad (2)
+		\end{cases*}
+	\end{equation*}
+	Sottraendo (1) a (2):
+	\begin{equation*}
+		\dot{x}_P -\dot{x}_N = A(x_P-x_N)\quad x_{P_0}-x_{N_0} = x_P(0)-x_N(0) 
+	\end{equation*}
+	Chiamo:
+	\[
+	\delta x = x_P -x_N \quad\delta x_0 = X_{P_0} - x_{N_0}
+	\]
+	\[
+	\boxed{	\delta \dot{x} = A\delta x}
+	\]
+	\begin{table}[H]
+		\centering
+		\begin{minipage}[t]{0.4\textwidth}
+			\lablsubsection{Definizione Stabilità}
+			$ x_N(t) $ è \emph{stabile} se $ \forall\varepsilon>0\,\, \exists \delta_\varepsilon>0$ \\tale che $ \forall\delta x_0 $ per cui:\[\vvline\delta x_0\vvline\leq\delta_\varepsilon\]
+			Allora:\[\vvline\delta x(t)\vvline\leq\varepsilon\quad\forall t\geq 0\]
+		\end{minipage}
+		\vline
+		\hspace{2ex}
+		\begin{minipage}[t]{0.4\textwidth}
+			\lablsubsection{Definizione A.S.}
+			$ x_N(t) $ è \emph{Asintoticamente Stabile} se è stabile e:
+			\[\lim_{t\to+\infty}\vvline\delta x\vvline = 0 \quad \forall\delta x_0 : \vvline\delta x_0 \vvline\leq\delta_\varepsilon\]
+		\end{minipage}
+		
+	\end{table}
+	Noto che la soluzioni di $ \delta\dot{x} = A\delta x $ è il moto libero, cioè dipende da $ e^{At} $ e dalle condizioni iniziali. L'osservazione vale per tutti i moti, quindi la stabilità è una proprietà del sistema (\cref*{subsec:Proprietà strutturale}).Inoltre le soluzioni sono scalate dalle condizioni iniziali. Il moto libero è infatti:\\
+	\[\delta x_\ell = e^{\text{A}t}\underline{\delta x_0}\]
+	\lablsubsection{Stabilità e autovalori}
+	Partiamo, per i sistemi \emph{LTI}, dal moto libero:
+	\[x_\ell = e^{\text{A}tx_0}\]
+	Se consideriamo matrici diagonalizzabili, $ \exists T: \det(T) \not=0 $ tale che 
+	\[\hat{A} = TAT^{-1} = diag\{\lambda_1, \lambda_2,\dots,\lambda_n\} \qquad \lambda_i \text{ Autovalori}\]
+	A questo punto scrivo esplicitamente il moto libero
+	\[x_\ell(t) e^{T^{-1}\hat{A}T}x_0 = T^{-1}\large\left[\begin{matrix}
+		e^{\lambda_1t} & && 0\\
+		& e^{\lambda_2t}&&  \\
+		& & \ddots&\\
+		0 & & & e^{\lambda_nt}
+	\end{matrix}\large\right] T x_0\] 
+	Le soluzioni sono combinazioni lineari degli esponenti $ e^{\lambda_it} ,i =1,\dots,n$ e si chiamano \emph{modi}. Noto che gli autovalori possono essere reali o complessi coniugati: $ \lambda_i =\alpha_i +\jmath\beta_i $. Noto che la matrice $ A $ è reale e la matrice esponenziale contiene solo numeri reali, cioè le parti immaginarie si elidono tramite i prodotti per $ T $ e $ T^-1 $. Otterremo:
+	\begin{equation*}
+		\boxed{e^{\alpha_it}\sin(\beta_it+\varphi_i)}\qquad i=1,\dots,n
+	\end{equation*}
+	\lablsubsection{Teorema di stabilità dei sistemi LTI}
+	Considero un sistema con $ A $ diagonalizzabile il sistema è:\\
+	A.S se e solo se tutti gli autovalori di $ A $ hanno parte reale strettamente negativa ($\Re(\lambda)<0$)\\
+	Dimostrazione:\\
+	se $ \alpha_i\leq0 \,\,\forall i $, con almeno un autovalore a parte reale nulla, tutti i moti sono limitati nel tempo, in particolare quelli associati ad autovalori con parte reale nulla sono o costanti ($ \beta_i = 0 $), o oscillano ($ \beta_i \not=0 $).\\
+	\colorbox{gray!20}{Instabile se e solo se esiste almeno un autovalore a parte reale positiva}\\
+	Dimostrazione:
+	Se esiste almeno un autovalore con parte reale positiva, cioè $ \exists \jmath : \alpha_i>0 $, allora esiste almeno un esponenziale che diverge.\\
+	Gli autovalori sono disposti nel piano complesso.\\
+	Osservazioni:
+	\begin{itemize}
+		\item La stabilità è una proprietà strutturale.
+		\item Il teorema esprime una condizione necessaria e sufficiente affinché $ A $ sia diagonalizzabile.
+		\item Se la matrice $ A $ non è diagonalizzabile, posso scrivere la forma di \person{Jordan}.
+		\item Se $ A $ non è diagonalizzabile e ci sono autovalori a parte reale nulla, il sistema è instabile se per almeno uno degli autovalori a parte reale nulla la molteplicità geometrica è minore di quella algebrica.
+	\end{itemize}
+	\lablsubsection{Criterio degli autovalori}
+	Data una matrice A diagonalizzabile:\\
+	\begin{itemize}
+		\item A.S. $\iff \Re(\lambda_i)<0 \space i = 1,\dots,n$
+		\item Semplicemente stabile $\iff \Re(\lambda_i)\leq 0 \space i=1,\dots,n$
+		\item Instabilità: $\exists \jmath : \Re(\lambda_j)>0$
+	\end{itemize}
+	\lablsubsection{Criteri di ispezione di A}
+	\begin{enumerate}
+		\item Se la matrice A è diagonale o triangolare, gli autovalori sono sulla diagonale.
+		\item $ Tr(A) = \sum_{i =1}^{n} \lambda_i =\sum_{i=1}^{n}\Re(\lambda_i)$\\
+		se la traccia è positiva o nulla il sistema non è A.S.; se è positiva in particolare è instabile
+		\item $\det(A) =\prodc_{i=1}^{n}\lambda_i$\\
+		se il determinante è nullo il sistema non è A.S.
+	\end{enumerate}
+	\lablsubsection{Criterio del polinomio caratteristico}
+	\[\boxed{X(\lambda) =\det(\lambda I-A)}\]
+	Posso calcolare le radici di questo polinomio e poi usare uno dei seguenti criteri:
+	\subsubsection{Criteri basati sui coefficienti del polinomio caratteristico}
+	\begin{itemize}
+		\item \textbf{Polinomi di grado $ n=2 $}\\
+		Condizioni necessarie e sufficienti perché il sistema sia A.S. è che i coefficienti di $ X(\lambda) $ siano concordi in segno.
+		\item \textbf{Polinomi di grado $ n>2 $}\\
+		Condizione solo necessaria perché il sistema sia A.S. è che tutti i coefficienti di $ X(\lambda) $ siano concordi in segno
+	\end{itemize}
+	Nel caso di $ n>2 $ va applicato un altro criterio:
+	\subsubsection{Criterio di \person{Routh}-\person{Hurwitz} (R-H)}
+	\begin{enumerate}
+		\item Scrivo $ X(\lambda) $ e verifico che sia ordinato come segue\\
+		$ X(\lambda) = \varphi_0\lambda^n + \varphi_1\lambda^{n-1} + \dots + \varphi_n $
+		\item Costruisco la tabella di R-H di $ n+1 $ righe\\
+		\begin{table}[H]
+			\centering
+			\begin{tabular}{c c c c}
+				$\varphi_0$ & $\varphi_2$ & $\varphi_4$ & \dots \\
+				$\varphi_1$ & $\varphi_3$ & $\varphi_5$ & \dots \\
+				$ h_1 $   & $ h_2 $     & $ h_3 $     & \dots \\
+				$ k_1 $   & $ k_2 $     & $ k_3 $     & \dots \\
+				$ \ell_1 $  & $ \ell_2 $  & $ \ell_3 $  & \dots \\
+				\vdots    &             &             &       \\
+				n+1   &             &             &
+			\end{tabular}
+		\end{table}
+		\[ h_i = -\frac{1}{\varphi_1} \det\left[\begin{matrix}
+			\varphi_0 & \varphi_{2i}\\
+			\varphi_1 & \varphi_{2i +1}
+		\end{matrix}\right]  \quad i = 1,\dots\]
+		\[ k_i = -\frac{1}{h_1} \det\left[\begin{matrix}
+			\varphi_1 & \varphi_{2i+1}\\
+			h_1 & h_{i +1}
+		\end{matrix}\right]  \quad i = 1,\dots\]
+		\item Verifico che i coefficienti della prima colonna siano diversi da zero, cioè la tabella di R-H è \emph{ben definita}
+		\item Applico il criterio di \person{Routh-Hurwitz}:\\
+		Il sistema è A.S. se e solo se la tabella di R-H è ben definita e tutti gli elementi della prima colonna sono concordi in segno.
+		\item Verifico che i coefficienti della prima colonna siano diversi da zero, cioè la tabella di R-H è "ben-definita".
+		\item Applico il criterio di R-H:\\
+		Il sistema è A.S se e solo se la tabella di R-H è ben definita e tutti gli elementi della prima colonna sono concordi in segno
+	\end{enumerate}
